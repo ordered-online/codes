@@ -45,13 +45,13 @@ Example response if successful:
 {
   "success": true,
   "code": {
-    "value": 5, 
+    "value": "da5d9d7cd737768933d29c346ad305c2d9743b6a", 
     "timestamp": "2019-10-19T10:28:58.838Z"
   }
 }
 ```
 
-### `/code/<value>/new/`
+### `/code/<value>/render/`
 Render the given code value to a base64 encoded image.
 Parameters: None
 Method: GET
