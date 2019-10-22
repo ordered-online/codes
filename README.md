@@ -28,11 +28,6 @@ $ python3 manage.py runserver
 
 Following API Endpoints are supported:
 
-### `/code/new/`
-Create a new code.
-Parameters: None
-Method: GET
-
 Example response if unsuccessful:
 ```json
 {
@@ -40,14 +35,16 @@ Example response if unsuccessful:
 }
 ```
 
-Example response if successful:
-```json
+### `/code/new/`
+Create a new code.
+Method: GET
+
+Example with `curl:
+```
+$ curl -i -X GET http://127.0.0.1:8000/code/new/
+
 {
-  "success": true,
-  "code": {
-    "value": "da5d9d7cd737768933d29c346ad305c2d9743b6a", 
-    "timestamp": "2019-10-19T10:28:58.838Z"
-  }
+    "value": "1af50d6cab08281f2f3dba71f3cbc7691713c75d"
 }
 ```
 
@@ -56,18 +53,12 @@ Render the given code value to a base64 encoded image.
 Parameters: None
 Method: GET
 
-Example response if unsuccessful:
-```json
-{
-  "success": false
-}
+Example with `curl`:
 ```
+$ curl -i -X GET http://127.0.0.1:8000/code/1af50d6cab08281f2f3dba71f3cbc7691713c75d/render/
 
-Example response if successful:
-```json
 {
-  "success": true,
-  "base64": "PD94b...Zz4K"
+    "base64": "PD94b...C9zdmc+Cg=="
 }
 ```
 

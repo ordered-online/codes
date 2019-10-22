@@ -2,7 +2,8 @@ import base64
 import io
 
 import pyqrcode
-from django.http import JsonResponse, HttpResponse
+from django.forms import model_to_dict
+from django.http import JsonResponse
 
 from .models import Code
 
@@ -16,13 +17,7 @@ def new_code(request):
     if request.method != "GET":
         return JsonResponse({"success": False})
     code = Code.objects.create()
-    return JsonResponse({
-        "success": True,
-        "code": {
-            "value": code.value,
-            "timestamp": code.timestamp,
-        },
-    })
+    return JsonResponse(model_to_dict(code))
 
 
 def render_code(request, value):
@@ -36,7 +31,4 @@ def render_code(request, value):
     stream = io.BytesIO()
     pyqrcode.create(value).svg(stream)
     encoding = base64.b64encode(stream.getvalue())
-    return JsonResponse({
-        "success": True,
-        "base64": encoding.decode("ascii"),
-    })
+    return JsonResponse({"base64": encoding.decode("ascii")})
