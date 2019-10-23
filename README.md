@@ -24,12 +24,24 @@ export LDFLAGS="-L$(brew --prefix openssl)/lib $LDFLAGS"
 $ python3 -m pip install -r requirements.txt
 ```
 
-Run the server.
+Run the server in development mode.
 ```
 $ cd codes
 $ python3 manage.py migrate
-$ python3 manage.py runserver
+$ python3 manage.py runserver 127.0.0.1:8000
 ```
+
+Run the containerized server in production mode with docker-compose.
+```
+$ docker-compose down -v
+$ docker-compose -f docker-compose.yml up -d --build
+```
+View the logs with
+```
+$ docker-compose logs -f
+```
+
+Make sure to modify the user information in `.env` and `.env.db` before really deploying the application.
 
 ## API Endpoints
 
