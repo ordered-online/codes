@@ -12,16 +12,36 @@ Any code, but also other values can be rendered to a qr code.
 ## Quickstart
 
 Make sure, that Python 3 is installed. Install all requirements with the following command:
+On macOS, please run:
+
+```
+export CFLAGS="-I$(brew --prefix openssl)/include $CFLAGS"
+export LDFLAGS="-L$(brew --prefix openssl)/lib $LDFLAGS"
+```
+(This is necessary to build the `psycopg2` library.)
+
 ```
 $ python3 -m pip install -r requirements.txt
 ```
 
-Run the server.
+Run the server in development mode.
 ```
 $ cd codes
 $ python3 manage.py migrate
-$ python3 manage.py runserver
+$ python3 manage.py runserver 127.0.0.1:8000
 ```
+
+Run the containerized server in production mode with docker-compose.
+```
+$ docker-compose down -v
+$ docker-compose -f docker-compose.yml up -d --build
+```
+View the logs with
+```
+$ docker-compose logs -f
+```
+
+Make sure to modify the user information in `.env` and `.env.db` before really deploying the application.
 
 ## API Endpoints
 
