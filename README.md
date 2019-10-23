@@ -12,6 +12,14 @@ Any code, but also other values can be rendered to a qr code.
 ## Quickstart
 
 Make sure, that Python 3 is installed. Install all requirements with the following command:
+On macOS, please run:
+
+```
+export CFLAGS="-I$(brew --prefix openssl)/include $CFLAGS"
+export LDFLAGS="-L$(brew --prefix openssl)/lib $LDFLAGS"
+```
+(This is necessary to build the `psycopg2` library.)
+
 ```
 $ python3 -m pip install -r requirements.txt
 ```
