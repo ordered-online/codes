@@ -22,5 +22,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
 
     path("code/new/", views.new_code, name="new_code"),
-    path("code/<value>/render/", views.render_code, name="render_code")
+    path("code/render/qr/", views.render_to_qr_code, name="render_to_qr_code")
 ]
