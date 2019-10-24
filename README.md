@@ -26,13 +26,13 @@ $ python3 manage.py runserver 127.0.0.1:8000
 
 Following API Endpoints are supported:
 
-### Create a new unique code with `/code/new/`
+### Create a new unique code with `/codes/new/`
 Create a new code.
 Method: GET
 
 Example with `curl:
 ```
-$ curl -i -X GET http://127.0.0.1:8000/code/new/
+$ curl -i -X GET http://127.0.0.1:8000/codes/new/
 
 {
     "success": true,
@@ -46,7 +46,7 @@ Failure Responses:
 - [IncorrectAccessMethod](#IncorrectAccessMethod) if the service was accessed with any other method than specified.
 
 
-### Render a payload value to a qr code with `/code/render/qr/`
+### Render a payload value to a qr code with `/codes/render/qr/`
 Render the given payload value to a base64 encoded image.
 Method: POST
 
@@ -69,6 +69,7 @@ $ curl -i -X POST -H 'Content-Type: application/json' -d '{"value": "https://phi
 Failure Responses:
 - [IncorrectAccessMethod](#IncorrectAccessMethod) if the service was accessed with any other method than specified.
 - [ErroneousValue](#ErroneousValue) if the passed value could not be rendered to a qr code.
+- [MalformedJson](#MalformedJson) if the passed json body is malformed.
 
 ## Failure Responses
 

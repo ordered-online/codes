@@ -21,6 +21,6 @@ from . import views
 urlpatterns = [
     path("admin/", admin.site.urls),
 
-    path("code/new/", views.new_code, name="new_code"),
-    path("code/render/qr/", views.render_to_qr_code, name="render_to_qr_code")
+    path("codes/new/", views.new_code, name="new_code"),
+    path("codes/render/qr/", views.render_to_qr_code, name="render_to_qr_code")
 ]

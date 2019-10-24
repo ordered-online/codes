@@ -1,6 +1,7 @@
 import base64
 import io
 import json
+from json import JSONDecodeError
 
 import pyqrcode
 from django.forms import model_to_dict
@@ -40,6 +41,10 @@ class ErroneousValue(AbstractFailureResponse):
     reason = "erroneous_value"
 
 
+class MalformedJson(AbstractFailureResponse):
+    reason = "malformed_json"
+
+
 def new_code(request):
     """
     Create a new code and return it as a JSONResponse.
@@ -63,7 +68,11 @@ def render_to_qr_code(request):
     if request.method != "POST":
         return JsonResponse({"success": False})
 
-    data = json.loads(request.body)
+    try:
+        data = json.loads(request.body)
+    except JSONDecodeError:
+        return MalformedJson()
+
     value = data.get("value")
     if not value:
         return ErroneousValue()
