@@ -11,6 +11,8 @@ from .models import Code
 
 
 class SuccessResponse(JsonResponse):
+    status_code = 200
+
     def __init__(self, response=None):
         if response is None:
             super().__init__({
@@ -35,14 +37,17 @@ class AbstractFailureResponse(JsonResponse):
 
 class IncorrectAccessMethod(AbstractFailureResponse):
     reason = "incorrect_access_method"
+    status_code = 405
 
 
 class ErroneousValue(AbstractFailureResponse):
     reason = "erroneous_value"
+    status_code = 400
 
 
 class MalformedJson(AbstractFailureResponse):
     reason = "malformed_json"
+    status_code = 400
 
 
 def new_code(request):
@@ -52,7 +57,7 @@ def new_code(request):
     Allowed methods: GET
     """
     if request.method != "GET":
-        return IncorrectAccessMethod
+        return IncorrectAccessMethod()
 
     code = Code.objects.create()
 

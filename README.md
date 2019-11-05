@@ -77,6 +77,8 @@ Following failure responses are supported:
 
 ### ErroneousValue
 
+Code: 400
+
 ```
 { 
    "success":false,
@@ -86,9 +88,22 @@ Following failure responses are supported:
 
 ### IncorrectAccessMethod
 
+Code: 405
+
 ```
 { 
    "success":false,
    "reason":"incorrect_access_method"
+}
+```
+
+### MalformedJson
+
+Code: 400
+
+```
+{ 
+   "success":false,
+   "reason":"malformed_json"
 }
 ```
