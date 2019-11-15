@@ -15,14 +15,9 @@ class SuccessResponse(JsonResponse):
 
     def __init__(self, response=None):
         if response is None:
-            super().__init__({
-                "success": True,
-            })
+            super().__init__({})
         else:
-            super().__init__({
-                "success": True,
-                "response": response
-            })
+            super().__init__(response)
 
 
 class AbstractFailureResponse(JsonResponse):
@@ -30,7 +25,6 @@ class AbstractFailureResponse(JsonResponse):
 
     def __init__(self):
         super().__init__({
-            "success": False,
             "reason": self.reason
         })
 
@@ -71,7 +65,7 @@ def render_to_qr_code(request):
     Allowed methods: POST
     """
     if request.method != "POST":
-        return JsonResponse({"success": False})
+        return IncorrectAccessMethod()
 
     try:
         data = json.loads(request.body)

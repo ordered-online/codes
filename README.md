@@ -16,10 +16,11 @@ $ python3 -m pip install -r requirements.txt
 ```
 
 Run the server in development mode.
+
 ```
 $ cd codes
 $ python3 manage.py migrate
-$ python3 manage.py runserver 127.0.0.1:8000
+$ python3 manage.py runserver 127.0.0.1:8003
 ```
 
 ## API Endpoints
@@ -27,46 +28,45 @@ $ python3 manage.py runserver 127.0.0.1:8000
 Following API Endpoints are supported:
 
 ### Create a new unique code with `/codes/new/`
+
 Create a new code.
 Method: GET
 
 Example with `curl:
+
 ```
-$ curl -i -X GET http://127.0.0.1:8000/codes/new/
+$ curl -i -X GET http://127.0.0.1:8003/codes/new/
 
 {
-    "success": true,
-    "response": {
-        "value": "dbb63047336a703641f7d34e964db0057e45e702"
-    }
+    "value": "dbb63047336a703641f7d34e964db0057e45e702"
 }
 ```
 
 Failure Responses:
+
 - [IncorrectAccessMethod](#IncorrectAccessMethod) if the service was accessed with any other method than specified.
 
-
 ### Render a payload value to a qr code with `/codes/render/qr/`
+
 Render the given payload value to a base64 encoded image.
 Method: POST
 
-|Parameter|Restriction|Mandatory|
-|-|-|-|
-|value|Should be a value, which can be rendered to a qr code.|yes|
+| Parameter | Restriction                                            | Mandatory |
+| --------- | ------------------------------------------------------ | --------- |
+| value     | Should be a value, which can be rendered to a qr code. | yes       |
 
 Example with `curl`:
+
 ```
-$ curl -i -X POST -H 'Content-Type: application/json' -d '{"value": "https://philippmatth.es"}' http://127.0.0.1:8000/code/render/qr/
+$ curl -i -X POST -H 'Content-Type: application/json' -d '{"value": "https://philippmatth.es"}' http://127.0.0.1:8003/codes/render/qr/
 
 {
-    "success": true,
-    "response": {
-        "base64": "..."
-    }
+    "base64": "..."
 }
 ```
 
 Failure Responses:
+
 - [IncorrectAccessMethod](#IncorrectAccessMethod) if the service was accessed with any other method than specified.
 - [ErroneousValue](#ErroneousValue) if the passed value could not be rendered to a qr code.
 - [MalformedJson](#MalformedJson) if the passed json body is malformed.
@@ -80,8 +80,7 @@ Following failure responses are supported:
 Code: 400
 
 ```
-{ 
-   "success":false,
+{
    "reason":"erroneous_value"
 }
 ```
@@ -91,8 +90,7 @@ Code: 400
 Code: 405
 
 ```
-{ 
-   "success":false,
+{
    "reason":"incorrect_access_method"
 }
 ```
@@ -102,8 +100,7 @@ Code: 405
 Code: 400
 
 ```
-{ 
-   "success":false,
+{
    "reason":"malformed_json"
 }
 ```
