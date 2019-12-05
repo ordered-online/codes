@@ -1,4 +1,4 @@
-Django==2.2.6
+Django==2.2.8
 PyQRCode==1.2.1
 gunicorn==19.9.0
 psycopg2-binary==2.8.4
