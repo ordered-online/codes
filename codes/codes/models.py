@@ -38,7 +38,7 @@ class Code(models.Model):
     """Represent a code, which can be used to verify users."""
 
     # Automatically computed fields
-    value = models.CharField(max_length=40, primary_key=True)
+    value = models.CharField(max_length=6, primary_key=True)
     timestamp = models.DateTimeField(default=timezone.now, editable=False)
 
     objects = CodeManager()
@@ -51,7 +51,7 @@ class Code(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.value:
-            self.value = binascii.hexlify(os.urandom(20)).decode()
+            self.value = binascii.hexlify(os.urandom(20)).decode()[:6]
         return super().save(*args, **kwargs)
 
     def __str__(self):
